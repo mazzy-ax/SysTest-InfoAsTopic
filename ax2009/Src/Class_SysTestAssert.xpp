@@ -1,0 +1,59 @@
+// This is a framework class. Customizing this class may cause problems with future upgrades to the software.
+// This class contains a set of assert methods.
+// Messages are only displayed when an assert fails.
+//
+// The infolog will have an edit action to all calls into this class.
+//
+class SysTestAssert
+{
+    #define.defaultAssertErrorMessage('Assertion failed!')
+    #define.defaultFailMessage('Failed called')
+    #define.expectedMessage('Expected')
+    #define.actualMessage('Actual')
+    #define.trueMessage('True')
+    #define.falseMessage('False')
+    #define.nullMessage('null')
+    #define.notNullMessage('not null')
+    #define.equalValues('Values are equal.')
+
+    #define.equalMethod('equal')
+    #define.toStringMethod('toString')
+    #define.unknownValueMessage('Unknown value')
+    #define.unknownObjectValue1Message('Unknown value in')
+    #define.unknownObjectValue2Message('object')
+
+    str topic; // https://github.com/mazzy-ax/SysTest-InfoAsTopic
+
+    /// Fails a test. You can also provide message for the failure as optional parameter.
+    public void fail(str _message = #defaultFailMessage)
+    {
+        ;
+
+        if( topic )
+        {
+            _message += strfmt(' [%1]', topic);
+        }
+
+        SysTestAssert::message(_message, SysTestListenerLevel::Failure);
+        throw Exception::Break;
+    }
+
+    /// Adds an information message.
+    public final void info(str _message)
+    {
+        ;
+
+        topic = _message;
+
+        //SysTestAssert::message(_message, SysTestListenerLevel::Info);
+    }
+
+    public str parmTopic(str _topic = topic)
+    {
+        ;
+        topic = _topic;
+
+        return topic;
+    }
+
+}
